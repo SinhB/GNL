@@ -6,7 +6,7 @@
 /*   By: ybecret <ybecret@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 16:51:47 by ybecret           #+#    #+#             */
-/*   Updated: 2017/01/17 17:54:41 by ybecret          ###   ########.fr       */
+/*   Updated: 2017/05/16 17:02:54 by ybecret          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,43 @@ static int	check_elem(int const fd, char *buff, t_fd **flst)
 	t_fd	*elem;
 	char	*tmp;
 
-	elem = ft_tracker(fd, flst);
+	elem = fd_tracker(fd, *flst);
 	if (!elem)
 	{
-		if (!(elem = new_line(fd, buff, flst)));
+		if (!(elem = new_line(fd, buff, flst)))
 			return (ERROR);
 	}
 	else
 	{
-		if (!(tmp = ft_strjoin(elem->buff, buff)));
+		if (!(tmp = ft_strjoin(elem->buff, buff)))
 			return (ERROR);
 		free(elem->buff);
-		elem->buff = tmp;		
+		elem->buff = tmp;
 	}
 	if (ft_strfind(elem->buff, '\n') != ERROR)
 		return (1);
 	return (0);
 }
 
-static char	*line_tracker(int const fd, t_fd **flst)
+static char	*line_tracker(int const fd, t_fd *flst)
 {
 	t_fd	*elem;
 	char	*tmp;
 	char	*res;
-	int	ret;
-	
-	get = NULL;
-	
+	int     ret;
+
+	res = NULL;
+
 	if (!(elem = fd_tracker(fd, flst)) || !elem->buff)
 		return (NULL);
-	if (ret = ft_strfind(elem->buff, '\n') != ERROR)
+	if ((ret = ft_strfind(elem->buff, '\n')) != ERROR)
 	{
-	
+        if (!(res = ft_strsub(elem->buff, 0, ret)))
+        	return (NULL);
+        if (!(tmp = ft_strdup(elem->buff + ret + 1)))
+        	return (NULL);
+        free(elem->buff);
+        elem->buff = tmp;
 	}
 	else
 	{

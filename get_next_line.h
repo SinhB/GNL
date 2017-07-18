@@ -21,7 +21,7 @@
 # include <stdlib.h>
 
 # define BUFF_SIZE 0
-# define ERROR 0
+# define ERROR -1
 
 typedef struct          s_fd
 {

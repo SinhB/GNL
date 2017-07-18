@@ -33,6 +33,7 @@ static t_fd		*fd_tracker(const int fd, t_fd *flst)
 	{
 		if (flst->fd == fd)
 			return (flst);
+		flst = flst->next;
 	}
 	return (NULL);
 }
@@ -73,12 +74,12 @@ static char		*line_tracker(int const fd, t_fd *flst)
 		return (NULL);
 	if ((ret = ft_strfind(elem->buff, '\n')) != ERROR)
 	{
-        if (!(res = ft_strsub(elem->buff, 0, ret)))
-        	return (NULL);
-        if (!(tmp = ft_strdup(elem->buff + ret + 1)))
-        	return (NULL);
-        free(elem->buff);
-        elem->buff = tmp;
+		if (!(res = ft_strsub(elem->buff, 0, ret)))
+			return (NULL);
+		if (!(tmp = ft_strdup(elem->buff + ret + 1)))
+			return (NULL);
+		free(elem->buff);
+		elem->buff = tmp;
 	}
 	else
 	{

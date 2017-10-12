@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFF_SIZE 0
+# define BUFF_SIZE 4096
 # define ERROR -1
 
 typedef struct          s_fd

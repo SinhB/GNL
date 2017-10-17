@@ -47,16 +47,16 @@ static int		check_elem(int const fd, char *buff, t_fd **flst)
 	if (!elem)
 	{
 		if (!(elem = new_line(fd, buff, flst)))
-			return (ERROR);
+			return (-1);
 	}
 	else
 	{
 		if (!(tmp = ft_strjoin(elem->buff, buff)))
-			return (ERROR);
+			return (-1);
 		free(elem->buff);
 		elem->buff = tmp;
 	}
-	if (ft_strfind(elem->buff, '\n') != ERROR)
+	if (ft_strfind(elem->buff, '\n') != -1)
 		return (1);
 	return (0);
 }
@@ -72,7 +72,7 @@ static char		*line_tracker(int const fd, t_fd *flst)
 
 	if (!(elem = fd_tracker(fd, flst)) || !elem->buff)
 		return (NULL);
-	if ((ret = ft_strfind(elem->buff, '\n')) != ERROR)
+	if ((ret = ft_strfind(elem->buff, '\n')) != -1)
 	{
 		if (!(res = ft_strsub(elem->buff, 0, ret)))
 			return (NULL);
